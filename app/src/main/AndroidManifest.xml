@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.register.RegisterActivity" android:exported="false" />
         <activity android:name=".ui.dashboard.DashboardActivity" android:exported="false" />
         <activity android:name=".ui.settings.SettingsActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />

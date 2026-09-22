@@ -11,6 +11,7 @@ import com.group24.atmospheric.data.repository.AuthRepository
 import com.group24.atmospheric.data.repository.WeatherRepository
 import com.group24.atmospheric.ui.dashboard.DashboardViewModel
 import com.group24.atmospheric.ui.login.LoginViewModel
+import com.group24.atmospheric.ui.register.RegisterViewModel
 import com.group24.atmospheric.ui.settings.SettingsViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -38,6 +39,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         return when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
+                RegisterViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(DashboardViewModel::class.java) -> {
                 DashboardViewModel(weatherRepository) as T

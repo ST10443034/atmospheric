@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.group24.atmospheric.databinding.ActivityLoginBinding
 import com.group24.atmospheric.ui.ViewModelFactory
 import com.group24.atmospheric.ui.dashboard.DashboardActivity
+import com.group24.atmospheric.ui.register.RegisterActivity
 import kotlinx.coroutines.launch
 
 /**
@@ -41,6 +42,10 @@ class LoginActivity : AppCompatActivity() {
         
         binding.btnGoogleSignIn.setOnClickListener {
             Toast.makeText(this, "Google Sign-In Defer: See PoE spec", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.tvCreateAccount.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
