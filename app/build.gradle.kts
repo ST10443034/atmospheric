@@ -31,6 +31,12 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    lint {
+        // The isiZulu/Afrikaans string resources are intentionally partial, unverified
+        // stub translations (see docs/design/README.md) pending native-speaker review;
+        // don't fail the build over strings that haven't been translated yet.
+        disable += "MissingTranslation"
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
