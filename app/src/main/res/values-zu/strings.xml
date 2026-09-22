@@ -6,7 +6,7 @@
 <resources>
     <string name="nav_home">Ikhaya</string>
     <string name="nav_forecast">Isibikezelo</string>
-    <string name="nav_offline">Ngaphandle kwenethiwekhi</string>
+    <string name="nav_offline">Ngaphandle</string>
     <string name="nav_settings">Izilungiselelo</string>
 
     <string name="login_subtitle">Isimo sezulu sakho, ngisho nalapho ungaxhunyiwe.</string>

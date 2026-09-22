@@ -37,6 +37,7 @@
     <string name="graph_var_precip">Precip %</string>
     <string name="graph_var_humidity">Humidity</string>
     <string name="graph_var_wind">Wind</string>
+    <string name="forecast_empty_cached">No cached forecast details yet — connect once to store the full hourly and daily outlook.</string>
 
     <string name="sync_title">Sync &amp; offline</string>
     <string name="sync_status_online">Online</string>

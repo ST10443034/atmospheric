@@ -63,17 +63,22 @@ class ForecastFragment : Fragment() {
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { state ->
-                renderTabs(state.selectedTab)
+                val listsEmpty = state.weather?.let { it.hourly.isEmpty() && it.daily.isEmpty() } ?: false
+                renderTabs(state.selectedTab, listsEmpty)
                 renderChips(state.selectedVariable)
                 state.weather?.let { renderContent(it, state.selectedTab, state.selectedVariable) }
             }
         }
     }
 
-    private fun renderTabs(selected: ForecastTab) {
-        binding.rvHourly.visibility = if (selected == ForecastTab.HOURLY) View.VISIBLE else View.GONE
-        binding.rvDaily.visibility = if (selected == ForecastTab.DAILY) View.VISIBLE else View.GONE
+    private fun renderTabs(selected: ForecastTab, listsEmpty: Boolean) {
+        val showHourly = selected == ForecastTab.HOURLY && !listsEmpty
+        val showDaily = selected == ForecastTab.DAILY && !listsEmpty
+        binding.rvHourly.visibility = if (showHourly) View.VISIBLE else View.GONE
+        binding.rvDaily.visibility = if (showDaily) View.VISIBLE else View.GONE
         binding.graphContainer.visibility = if (selected == ForecastTab.GRAPH) View.VISIBLE else View.GONE
+        binding.tvForecastEmpty.visibility =
+            if (listsEmpty && selected != ForecastTab.GRAPH) View.VISIBLE else View.GONE
 
         setTabSelected(binding.tabHourly, selected == ForecastTab.HOURLY)
         setTabSelected(binding.tabDaily, selected == ForecastTab.DAILY)

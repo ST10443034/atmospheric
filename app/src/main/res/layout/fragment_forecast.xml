@@ -83,6 +83,19 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_forecast_daily_row" />
 
+        <TextView
+            android:id="@+id/tvForecastEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_dashed_box"
+            android:gravity="center"
+            android:padding="26dp"
+            android:text="@string/forecast_empty_cached"
+            android:textColor="@color/ink_muted_60"
+            android:textSize="13.5sp"
+            android:visibility="gone" />
+
         <!-- Graph -->
         <LinearLayout
             android:id="@+id/graphContainer"
