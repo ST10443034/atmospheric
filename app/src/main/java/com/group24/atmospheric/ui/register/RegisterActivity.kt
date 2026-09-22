@@ -7,9 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.group24.atmospheric.MainActivity
 import com.group24.atmospheric.databinding.ActivityRegisterBinding
 import com.group24.atmospheric.ui.ViewModelFactory
-import com.group24.atmospheric.ui.dashboard.DashboardActivity
 import kotlinx.coroutines.launch
 
 /**
@@ -54,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
                         binding.btnRegister.isEnabled = false
                     }
                     is RegisterUiState.Success -> {
-                        startActivity(Intent(this@RegisterActivity, DashboardActivity::class.java))
+                        startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
                         finish()
                     }
                     is RegisterUiState.Error -> {

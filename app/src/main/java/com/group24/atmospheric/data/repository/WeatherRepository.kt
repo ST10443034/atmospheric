@@ -5,6 +5,7 @@ import com.group24.atmospheric.data.local.WeatherDao
 import com.group24.atmospheric.data.local.WeatherEntity
 import com.group24.atmospheric.data.remote.OpenMeteoApiService
 import com.group24.atmospheric.data.remote.toDomainModel
+import com.group24.atmospheric.domain.model.CurrentWeather
 import com.group24.atmospheric.domain.model.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -21,14 +22,16 @@ class WeatherRepository(
     private val TAG = "WeatherRepository"
 
     /**
-     * Fetches weather from network and caches it, or falls back to Room if offline.
+     * Fetches weather from network and caches it, or falls back to the last cached Room row
+     * (marked [WeatherInfo.isCached]) if offline. Only emits null when there is truly nothing —
+     * no network and no cached row yet — which the UI renders as the Error state.
      */
     fun getWeatherForecast(lat: Double, lon: Double, locationId: Long): Flow<WeatherInfo?> = flow {
         try {
             Log.d(TAG, "Fetching remote weather for lat: $lat, lon: $lon")
             val response = api.getForecast(lat, lon)
             val domainModel = response.toDomainModel()
-            
+
             // Cache current weather in Room
             val entity = WeatherEntity(
                 locationId = locationId,
@@ -41,13 +44,29 @@ class WeatherRepository(
                 weatherCode = domainModel.current.weatherCode
             )
             dao.insertWeather(entity)
-            
-            emit(domainModel)
+
+            emit(domainModel.copy(isCached = false, fetchedAt = System.currentTimeMillis() / 1000))
         } catch (e: Exception) {
             Log.e(TAG, "Network failed, falling back to cache: ${e.message}")
-            // Defer: In a full app, we'd map the Room entity back to a domain model
-            // For now, we emit null or try to read the latest from DAO
-            emit(null) 
+            val cached = dao.getLatestWeather(locationId).first()
+            emit(cached?.toDomainModel())
         }
     }
 }
+
+/** Maps a cached Room row back into the domain model the UI understands, flagged as cached. */
+private fun WeatherEntity.toDomainModel(): WeatherInfo = WeatherInfo(
+    current = CurrentWeather(
+        temperature = temperature,
+        feelsLike = apparentTemperature,
+        humidity = humidity,
+        windSpeed = windSpeed,
+        precipitation = precipitationProbability,
+        weatherCode = weatherCode,
+        timestamp = timestamp
+    ),
+    hourly = emptyList(),
+    daily = emptyList(),
+    isCached = true,
+    fetchedAt = timestamp
+)

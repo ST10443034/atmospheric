@@ -1,7 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme — dark tokens come from values-night/colors.xml. -->
     <style name="Base.Theme.Atmospheric" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/link</item>
+        <item name="colorSurface">@color/bg</item>
+        <item name="colorOnSurface">@color/ink</item>
+        <item name="colorOnSurfaceVariant">@color/ink_muted</item>
+        <item name="colorOutline">@color/line</item>
+        <item name="colorOutlineVariant">@color/line_strong</item>
+        <item name="colorError">@color/error</item>
+        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:statusBarColor">@color/bg</item>
+        <item name="android:navigationBarColor">@color/nav_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

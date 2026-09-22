@@ -1,3 +1,67 @@
 <resources>
     <string name="app_name">Atmospheric</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_forecast">Forecast</string>
+    <string name="nav_offline">Offline</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="login_subtitle">Your weather, even when you\'re offline.</string>
+    <string name="label_email">EMAIL</string>
+    <string name="label_password">PASSWORD</string>
+    <string name="hint_email">you@example.com</string>
+    <string name="hint_password">••••••</string>
+    <string name="label_or">OR</string>
+    <string name="action_login">Log in</string>
+    <string name="action_login_busy">Signing in…</string>
+    <string name="login_create_account">No account? Create one</string>
+    <string name="register_title">Create Account</string>
+    <string name="label_confirm_password">CONFIRM PASSWORD</string>
+    <string name="action_register">Register</string>
+    <string name="register_back_to_login">Already have an account? Login</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password_length">Password must be at least 6 characters</string>
+
+    <string name="dashboard_loading">LOADING FORECAST…</string>
+    <string name="dashboard_hourly_forecast">Hourly forecast</string>
+    <string name="dashboard_see_all">SEE ALL</string>
+    <string name="dashboard_error_title">Could not load weather data</string>
+    <string name="dashboard_error_body">No network and no cached forecast in Room yet. Connect and retry.</string>
+    <string name="action_retry">Retry</string>
+
+    <string name="forecast_title">Forecast</string>
+    <string name="forecast_tab_hourly">Hourly</string>
+    <string name="forecast_tab_daily">Daily</string>
+    <string name="forecast_tab_graph">Graph</string>
+    <string name="graph_var_temperature">Temperature</string>
+    <string name="graph_var_precip">Precip %</string>
+    <string name="graph_var_humidity">Humidity</string>
+    <string name="graph_var_wind">Wind</string>
+
+    <string name="sync_title">Sync &amp; offline</string>
+    <string name="sync_status_online">Online</string>
+    <string name="sync_status_offline">Offline</string>
+    <string name="sync_blurb_online">Connected. WorkManager runs a periodic CoroutineWorker to refresh the Room cache.</string>
+    <string name="sync_blurb_offline">Showing cached forecast. Queued operations run when a network becomes available.</string>
+    <string name="sync_retry_now">Retry now</string>
+    <string name="sync_queued_operations">Queued operations</string>
+    <string name="sync_queue_tag">SYNC_QUEUE</string>
+    <string name="sync_queue_empty">Queue empty — everything is synced.</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_group_theme">THEME</string>
+    <string name="settings_group_units">UNITS</string>
+    <string name="settings_group_language">LANGUAGE</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_units_metric">Metric (°C)</string>
+    <string name="settings_units_imperial">Imperial (°F)</string>
+    <string name="settings_lang_english">English</string>
+    <string name="settings_lang_zulu">isiZulu</string>
+    <string name="settings_lang_afrikaans">Afrikaans</string>
+    <string name="settings_selected">SELECTED</string>
+    <string name="settings_notifications_title">Enable notifications</string>
+    <string name="settings_notifications_subtitle">FCM severe-weather alerts</string>
+    <string name="settings_logout">Log out</string>
 </resources>

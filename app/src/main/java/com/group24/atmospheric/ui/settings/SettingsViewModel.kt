@@ -3,6 +3,7 @@ package com.group24.atmospheric.ui.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.group24.atmospheric.data.local.DataStoreManager
+import com.group24.atmospheric.data.repository.AuthRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -12,10 +13,13 @@ import kotlinx.coroutines.launch
  * ViewModel for the Settings screen.
  * Role: Bridges DataStore and UI for preference persistence.
  */
-class SettingsViewModel(private val dataStoreManager: DataStoreManager) : ViewModel() {
+class SettingsViewModel(
+    private val dataStoreManager: DataStoreManager,
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     val themeMode: StateFlow<String> = dataStoreManager.themeMode
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "SYSTEM")
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "DARK")
 
     val units: StateFlow<String> = dataStoreManager.units
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "METRIC")
@@ -23,8 +27,18 @@ class SettingsViewModel(private val dataStoreManager: DataStoreManager) : ViewMo
     val notificationsEnabled: StateFlow<Boolean> = dataStoreManager.notificationsEnabled
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)
 
+    val language: StateFlow<String> = dataStoreManager.language
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "ENGLISH")
+
     fun updateTheme(mode: String) {
         viewModelScope.launch { dataStoreManager.setThemeMode(mode) }
+        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(
+            when (mode) {
+                "LIGHT" -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+                "SYSTEM" -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                else -> androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+            }
+        )
     }
 
     fun updateUnits(unit: String) {
@@ -33,5 +47,13 @@ class SettingsViewModel(private val dataStoreManager: DataStoreManager) : ViewMo
 
     fun toggleNotifications(enabled: Boolean) {
         viewModelScope.launch { dataStoreManager.setNotificationsEnabled(enabled) }
+    }
+
+    fun updateLanguage(language: String) {
+        viewModelScope.launch { dataStoreManager.setLanguage(language) }
+    }
+
+    fun logout() {
+        authRepository.signOut()
     }
 }

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvLocationName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ink"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/pillStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Johannesburg" />
+
+        <TextView
+            android:id="@+id/tvCoordinates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/ink_muted"
+            android:textSize="10.5sp"
+            app:layout_constraintEnd_toStartOf="@id/pillStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLocationName"
+            tools:text="-26.2041, 28.0473" />
+
+        <LinearLayout
+            android:id="@+id/pillStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_pill_online"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/dotStatus"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/shape_glyph_circle"
+                android:backgroundTint="@color/link" />
+
+            <TextView
+                android:id="@+id/tvStatusPill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:textColor="@color/link"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                tools:text="LIVE" />
+        </LinearLayout>
+
+        <!-- Loading state -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCoordinates" />
+
+        <TextView
+            android:id="@+id/tvLoadingCaption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:text="@string/dashboard_loading"
+            android:textColor="@color/ink_muted"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBar" />
+
+        <!-- Success state -->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupSuccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="tvCurrentTemp,tvUnit,tvCondition,tvFeelsLike,tvFreshness,tilesContainer,tvHourlyTitle,tvSeeAll,rvHourlyForecast" />
+
+        <TextView
+            android:id="@+id/tvCurrentTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/ink"
+            android:textSize="88sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCoordinates"
+            tools:text="23" />
+
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/ink_muted_60"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvCurrentTemp"
+            app:layout_constraintStart_toEndOf="@id/tvCurrentTemp"
+            tools:text="°C" />
+
+        <TextView
+            android:id="@+id/tvCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/ink"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCurrentTemp"
+            tools:text="Partly cloudy" />
+
+        <TextView
+            android:id="@+id/tvFeelsLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/ink_muted"
+            android:textSize="13.5sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCondition"
+            tools:text="Feels like 21° · 24° / 11°" />
+
+        <TextView
+            android:id="@+id/tvFreshness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:textColor="@color/link"
+            android:textSize="10.5sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFeelsLike"
+            tools:text="LAST UPDATED 08:10 · LIVE" />
+
+        <LinearLayout
+            android:id="@+id/tilesContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvFreshness">
+
+            <include
+                android:id="@+id/detailHumidity"
+                layout="@layout/view_weather_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4.5dp"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/detailWind"
+                layout="@layout/view_weather_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4.5dp"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/detailPrecip"
+                layout="@layout/view_weather_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.5dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvHourlyTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/dashboard_hourly_forecast"
+            android:textColor="@color/ink"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tvSeeAll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilesContainer" />
+
+        <TextView
+            android:id="@+id/tvSeeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="@string/dashboard_see_all"
+            android:textColor="@color/link"
+            android:textSize="10.5sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvHourlyTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvHourlyTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHourlyForecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvHourlyTitle"
+            tools:listitem="@layout/item_hourly_forecast" />
+
+        <!-- Error state -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/groupError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_card_error"
+            android:padding="17dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tvCoordinates">
+
+            <TextView
+                android:id="@+id/tvErrorTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dashboard_error_title"
+                android:textColor="@color/error"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvErrorBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/dashboard_error_body"
+                android:textColor="@color/ink_muted_70"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvErrorTitle" />
+
+            <Button
+                android:id="@+id/btnRetry"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_button_outlined"
+                android:text="@string/action_retry"
+                android:textAllCaps="false"
+                android:textColor="@color/ink"
+                app:layout_constraintTop_toBottomOf="@id/tvErrorBody" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

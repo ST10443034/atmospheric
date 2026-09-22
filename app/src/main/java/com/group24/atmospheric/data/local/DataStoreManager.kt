@@ -18,10 +18,12 @@ class DataStoreManager(private val context: Context) {
         val THEME_MODE = stringPreferencesKey("theme_mode")
         val UNITS = stringPreferencesKey("units")
         val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
+        val LANGUAGE = stringPreferencesKey("language")
     }
 
+    /** DARK / LIGHT / SYSTEM. Dark is the design's default look. */
     val themeMode: Flow<String> = context.dataStore.data.map { pref ->
-        pref[Keys.THEME_MODE] ?: "SYSTEM"
+        pref[Keys.THEME_MODE] ?: "DARK"
     }
 
     val units: Flow<String> = context.dataStore.data.map { pref ->
@@ -30,6 +32,11 @@ class DataStoreManager(private val context: Context) {
 
     val notificationsEnabled: Flow<Boolean> = context.dataStore.data.map { pref ->
         pref[Keys.NOTIFICATIONS_ENABLED] ?: true
+    }
+
+    /** ENGLISH / ISIZULU / AFRIKAANS. */
+    val language: Flow<String> = context.dataStore.data.map { pref ->
+        pref[Keys.LANGUAGE] ?: "ENGLISH"
     }
 
     suspend fun setThemeMode(mode: String) {
@@ -42,5 +49,9 @@ class DataStoreManager(private val context: Context) {
 
     suspend fun setNotificationsEnabled(enabled: Boolean) {
         context.dataStore.edit { it[Keys.NOTIFICATIONS_ENABLED] = enabled }
+    }
+
+    suspend fun setLanguage(language: String) {
+        context.dataStore.edit { it[Keys.LANGUAGE] = language }
     }
 }

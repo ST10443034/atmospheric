@@ -35,9 +35,14 @@ data class DailyForecast(
 
 /**
  * Aggregated weather information for the UI.
+ *
+ * [isCached] and [fetchedAt] carry the freshness signal the design depends on: whether this
+ * reading came from the network just now, or from the last Room row written when we were online.
  */
 data class WeatherInfo(
     val current: CurrentWeather,
     val hourly: List<HourlyForecast>,
-    val daily: List<DailyForecast>
+    val daily: List<DailyForecast>,
+    val isCached: Boolean = false,
+    val fetchedAt: Long = 0L
 )

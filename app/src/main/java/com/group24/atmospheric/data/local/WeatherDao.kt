@@ -37,6 +37,15 @@ interface WeatherDao {
     @Query("SELECT * FROM sync_queue WHERE status = 'PENDING' ORDER BY createdAt ASC")
     fun getPendingItems(): Flow<List<SyncQueueEntity>>
 
+    @Query("SELECT * FROM sync_queue ORDER BY createdAt DESC")
+    fun getQueueItems(): Flow<List<SyncQueueEntity>>
+
+    @Update
+    suspend fun updateQueueItem(item: SyncQueueEntity)
+
+    @Query("DELETE FROM sync_queue WHERE queueId = :queueId")
+    suspend fun removeFromQueue(queueId: Long)
+
     // FCM Token Operations
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertToken(token: FCMTokenEntity)

@@ -2,4 +2,33 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Design tokens — light theme (see docs/design/README.md) -->
+    <color name="bg">#F4F6F7</color>
+    <color name="nav_bg">#E9EDF0</color>
+    <color name="panel">#0D10202D</color>
+    <color name="line">#1F10202D</color>
+    <color name="line_strong">#4710202D</color>
+    <color name="ink">#101D26</color>
+    <color name="ink_muted">#A8101D26</color>
+    <color name="ink_muted_45">#73101D26</color>
+    <color name="ink_muted_50">#80101D26</color>
+    <color name="ink_muted_55">#8C101D26</color>
+    <color name="ink_muted_60">#99101D26</color>
+    <color name="ink_muted_65">#A6101D26</color>
+    <color name="ink_muted_70">#B3101D26</color>
+    <color name="ink_muted_75">#BF101D26</color>
+    <color name="accent">#16648F</color>
+    <color name="link">#14618D</color>
+    <color name="glyph">#9FB2C1</color>
+    <color name="warn">#DFA869</color>
+    <color name="warn_text">#8A5A10</color>
+    <color name="error">#E08B6F</color>
+    <color name="error_border">#B4583F</color>
+    <color name="nav_inactive">#8496A4</color>
+
+    <color name="status_online_fill">#2156AEE4</color>
+    <color name="status_online_stroke">#6156AEE4</color>
+    <color name="status_offline_fill">#24DFA869</color>
+    <color name="status_offline_stroke">#6BDFA869</color>
 </resources>

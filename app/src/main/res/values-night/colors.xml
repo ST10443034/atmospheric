@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Design tokens — dark theme, the app's default (see docs/design/README.md) -->
+    <color name="bg">#0B1218</color>
+    <color name="nav_bg">#0D151C</color>
+    <color name="panel">#0EFFFFFF</color>
+    <color name="line">#1AFFFFFF</color>
+    <color name="line_strong">#38FFFFFF</color>
+    <color name="ink">#E8EEF2</color>
+    <color name="ink_muted">#A8E8EEF2</color>
+    <color name="ink_muted_45">#73E8EEF2</color>
+    <color name="ink_muted_50">#80E8EEF2</color>
+    <color name="ink_muted_55">#8CE8EEF2</color>
+    <color name="ink_muted_60">#99E8EEF2</color>
+    <color name="ink_muted_65">#A6E8EEF2</color>
+    <color name="ink_muted_70">#B3E8EEF2</color>
+    <color name="ink_muted_75">#BFE8EEF2</color>
+    <color name="accent">#1D6D99</color>
+    <color name="link">#6FB8E4</color>
+    <color name="glyph">#3D5A72</color>
+    <color name="warn">#DFA869</color>
+    <color name="warn_text">#DFA869</color>
+    <color name="error">#E08B6F</color>
+    <color name="error_border">#B4583F</color>
+    <color name="nav_inactive">#5B6B77</color>
+
+    <color name="status_online_fill">#2156AEE4</color>
+    <color name="status_online_stroke">#6156AEE4</color>
+    <color name="status_offline_fill">#24DFA869</color>
+    <color name="status_offline_stroke">#6BDFA869</color>
+</resources>

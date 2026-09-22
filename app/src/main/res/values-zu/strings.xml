@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  UNVERIFIED machine-assisted isiZulu translations — per docs/design/README.md, have a native
+  speaker review these before shipping. Keys not listed here fall back to English.
+-->
+<resources>
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_forecast">Isibikezelo</string>
+    <string name="nav_offline">Ngaphandle kwenethiwekhi</string>
+    <string name="nav_settings">Izilungiselelo</string>
+
+    <string name="login_subtitle">Isimo sezulu sakho, ngisho nalapho ungaxhunyiwe.</string>
+    <string name="label_email">I-EMAIL</string>
+    <string name="label_password">IPHASIWDI</string>
+    <string name="action_login">Ngena</string>
+    <string name="action_login_busy">Iyangena…</string>
+    <string name="login_create_account">Awunayo i-akhawunti? Yenza eyodwa</string>
+
+    <string name="dashboard_hourly_forecast">Isibikezelo sehora</string>
+    <string name="dashboard_see_all">BONA ZONKE</string>
+    <string name="action_retry">Zama futhi</string>
+
+    <string name="forecast_title">Isibikezelo</string>
+    <string name="forecast_tab_hourly">Ihora</string>
+    <string name="forecast_tab_daily">Ilanga</string>
+    <string name="forecast_tab_graph">Igrafu</string>
+
+    <string name="sync_title">Ukuvumelanisa nokungaxhunyiwe</string>
+    <string name="sync_status_online">Kuxhunyiwe</string>
+    <string name="sync_status_offline">Akuxhunyiwe</string>
+    <string name="sync_retry_now">Zama manje</string>
+    <string name="sync_queued_operations">Imisebenzi elindile</string>
+    <string name="sync_queue_empty">Uhla alunalutho — konke kuvunyelaniswe.</string>
+
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="settings_group_theme">ISIHLOKO</string>
+    <string name="settings_group_units">AMAYUNITHI</string>
+    <string name="settings_group_language">ULIMI</string>
+    <string name="settings_theme_light">Okukhanyayo</string>
+    <string name="settings_theme_dark">Okumnyama</string>
+    <string name="settings_theme_system">Isistimu</string>
+    <string name="settings_lang_english">IsiNgisi</string>
+    <string name="settings_lang_zulu">IsiZulu</string>
+    <string name="settings_lang_afrikaans">IsiBhunu</string>
+    <string name="settings_selected">KUKHETHIWE</string>
+    <string name="settings_notifications_title">Vumela izaziso</string>
+    <string name="settings_logout">Phuma</string>
+</resources>

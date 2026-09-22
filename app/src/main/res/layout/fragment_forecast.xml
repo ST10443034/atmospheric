@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forecast_title"
+            android:textColor="@color/ink"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <!-- Segmented tab control -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_segment_container"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tabHourly"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_segment_selected"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/forecast_tab_hourly"
+                android:textColor="@color/ink"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/tabDaily"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/forecast_tab_daily"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/tabGraph"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/forecast_tab_graph"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <!-- Hourly -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHourly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_forecast_hourly_row" />
+
+        <!-- Daily -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDaily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_forecast_daily_row" />
+
+        <!-- Graph -->
+        <LinearLayout
+            android:id="@+id/graphContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chipTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_chip_selected"
+                    android:paddingHorizontal="13dp"
+                    android:paddingVertical="8dp"
+                    android:text="@string/graph_var_temperature"
+                    android:textColor="@color/link"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipPrecip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:paddingHorizontal="13dp"
+                    android:paddingVertical="8dp"
+                    android:text="@string/graph_var_precip"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chipHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:paddingHorizontal="13dp"
+                    android:paddingVertical="8dp"
+                    android:text="@string/graph_var_humidity"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipWind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_chip_unselected"
+                    android:paddingHorizontal="13dp"
+                    android:paddingVertical="8dp"
+                    android:text="@string/graph_var_wind"
+                    android:textColor="@color/ink"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="17dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvGraphHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/ink_muted_60"
+                        android:textSize="10sp"
+                        tools:text="TEMPERATURE_2M · 24H" />
+
+                    <TextView
+                        android:id="@+id/tvGraphFreshness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/link"
+                        android:textSize="10sp"
+                        tools:text="LIVE" />
+                </LinearLayout>
+
+                <com.group24.atmospheric.ui.forecast.LineGraphView
+                    android:id="@+id/graphView"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:text="00"
+                        android:textColor="@color/ink_muted_50"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:text="06"
+                        android:textColor="@color/ink_muted_50"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:text="12"
+                        android:textColor="@color/ink_muted_50"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:text="18"
+                        android:textColor="@color/ink_muted_50"
+                        android:textSize="9.5sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="end"
+                        android:text="24"
+                        android:textColor="@color/ink_muted_50"
+                        android:textSize="9.5sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvGraphValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/ink"
+                    android:textSize="24sp"
+                    tools:text="23°" />
+
+                <TextView
+                    android:id="@+id/tvGraphRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/ink_muted_60"
+                    android:textSize="12.5sp"
+                    tools:text="now · 14° – 25°" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRequestShape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="monospace"
+                android:textColor="@color/ink_muted_50"
+                android:textSize="10.5sp"
+                tools:text="GET /v1/forecast?latitude=-26.2041&amp;longitude=28.0473&amp;timezone=auto" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textColor="@color/ink"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <!-- Theme -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            android:text="@string/settings_group_theme"
+            android:textColor="@color/ink_muted_55"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_segment_container"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/optThemeLight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/settings_theme_light"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/optThemeDark"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/settings_theme_dark"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/optThemeSystem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/settings_theme_system"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <!-- Units -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            android:text="@string/settings_group_units"
+            android:textColor="@color/ink_muted_55"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_segment_container"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/optUnitsMetric"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/settings_units_metric"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+
+            <TextView
+                android:id="@+id/optUnitsImperial"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="@string/settings_units_imperial"
+                android:textColor="@color/ink_muted"
+                android:textSize="13.5sp" />
+        </LinearLayout>
+
+        <!-- Language -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            android:text="@string/settings_group_language"
+            android:textColor="@color/ink_muted_55"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:id="@+id/rowLangEnglish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="13dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settings_lang_english"
+                android:textColor="@color/ink"
+                android:textSize="14.5sp" />
+
+            <TextView
+                android:id="@+id/tagLangEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/settings_selected"
+                android:textColor="@color/warn"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowLangZulu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="13dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settings_lang_zulu"
+                android:textColor="@color/ink"
+                android:textSize="14.5sp" />
+
+            <TextView
+                android:id="@+id/tagLangZulu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/settings_selected"
+                android:textColor="@color/warn"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rowLangAfrikaans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="13dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settings_lang_afrikaans"
+                android:textColor="@color/ink"
+                android:textSize="14.5sp" />
+
+            <TextView
+                android:id="@+id/tagLangAfrikaans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/settings_selected"
+                android:textColor="@color/warn"
+                android:textSize="10sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Notifications -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_notifications_title"
+                    android:textColor="@color/ink"
+                    android:textSize="14.5sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/settings_notifications_subtitle"
+                    android:textColor="@color/ink_muted_60"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchNotifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/accent" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="17dp"
+            android:text="@string/settings_logout"
+            android:textColor="@color/error"
+            android:textSize="14.5sp" />
+
+        <TextView
+            android:id="@+id/tvDiagnostics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="monospace"
+            android:textColor="@color/ink_muted_45"
+            android:textSize="10sp"
+            tools:text="DataStore · theme=Dark units=Metric lang=English" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

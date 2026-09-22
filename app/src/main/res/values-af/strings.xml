@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  UNVERIFIED machine-assisted Afrikaans translations — per docs/design/README.md, have a native
+  speaker review these before shipping. Keys not listed here fall back to English.
+-->
+<resources>
+    <string name="nav_home">Tuis</string>
+    <string name="nav_forecast">Vooruitskatting</string>
+    <string name="nav_offline">Vanlyn</string>
+    <string name="nav_settings">Instellings</string>
+
+    <string name="login_subtitle">Jou weer, selfs wanneer jy vanlyn is.</string>
+    <string name="label_email">E-POS</string>
+    <string name="label_password">WAGWOORD</string>
+    <string name="action_login">Meld aan</string>
+    <string name="action_login_busy">Besig om aan te meld…</string>
+    <string name="login_create_account">Geen rekening nie? Skep een</string>
+
+    <string name="dashboard_hourly_forecast">Uurlikse vooruitskatting</string>
+    <string name="dashboard_see_all">SIEN ALLES</string>
+    <string name="action_retry">Probeer weer</string>
+
+    <string name="forecast_title">Vooruitskatting</string>
+    <string name="forecast_tab_hourly">Uurliks</string>
+    <string name="forecast_tab_daily">Daagliks</string>
+    <string name="forecast_tab_graph">Grafiek</string>
+
+    <string name="sync_title">Sinkronisasie &amp; vanlyn</string>
+    <string name="sync_status_online">Aanlyn</string>
+    <string name="sync_status_offline">Vanlyn</string>
+    <string name="sync_retry_now">Probeer nou weer</string>
+    <string name="sync_queued_operations">Wagtende bewerkings</string>
+    <string name="sync_queue_empty">Ry is leeg — alles is gesinkroniseer.</string>
+
+    <string name="settings_title">Instellings</string>
+    <string name="settings_group_theme">TEMA</string>
+    <string name="settings_group_units">EENHEDE</string>
+    <string name="settings_group_language">TAAL</string>
+    <string name="settings_theme_light">Lig</string>
+    <string name="settings_theme_dark">Donker</string>
+    <string name="settings_theme_system">Stelsel</string>
+    <string name="settings_lang_english">Engels</string>
+    <string name="settings_lang_zulu">isiZulu</string>
+    <string name="settings_lang_afrikaans">Afrikaans</string>
+    <string name="settings_selected">GEKIES</string>
+    <string name="settings_notifications_title">Aktiveer kennisgewings</string>
+    <string name="settings_logout">Meld af</string>
+</resources>
