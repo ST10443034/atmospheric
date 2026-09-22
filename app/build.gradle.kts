@@ -5,10 +5,6 @@ plugins {
     alias(libs.plugins.googleServices)
 }
 
-kotlin {
-    jvmToolchain(21)
-}
-
 android {
     namespace = "com.group24.atmospheric"
     compileSdk = 34
@@ -34,6 +30,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
