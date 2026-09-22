@@ -109,6 +109,7 @@ native speaker review them before treating them as final.
 | Student number | Name |
 | --- | --- |
 | ST10443034 | Oluga Jeffrey Neluvhalani |
-| ST10446457 | Luthando |
+| ST10446457 | Luthando |Mndawe
+
 
 <!-- Add remaining Group 24 members here. -->
