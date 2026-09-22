@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "109539401550",
+    "project_id": "atmospheric-9a431",
+    "storage_bucket": "atmospheric-9a431.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109539401550:android:4023ad34103ef33322081f",
+        "android_client_info": {
+          "package_name": "com.group24.atmospheric"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109539401550-ge39kpt55jop7vomqlhqnidpmd38ilgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6Ck1Vo0EwhphHRzgFJ33KBI_oaHeoBEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109539401550-ge39kpt55jop7vomqlhqnidpmd38ilgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
