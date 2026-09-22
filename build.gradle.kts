@@ -3,5 +3,6 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.kotlinKapt) apply false
+    alias(libs.plugins.ksp) apply false
     alias(libs.plugins.googleServices) apply false
 }
