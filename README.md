@@ -40,7 +40,7 @@ via Jetpack DataStore and apply live without a restart.
 - **APK**: [`Atmospheric Gr24.apk`](Atmospheric%20Gr24.apk) — install
   directly on an Android device (enable "install from unknown sources" if
   prompted).
-- **Walkthrough video**: [`APP TUTORIAL VIDEO.mp4`](APP%20TUTORIAL%20VIDEO.mp4)
+- **Walkthrough video**:[ [`APP TUTORIAL VIDEO.mp4`](APP%20TUTORIAL%20VIDEO.mp4)](https://youtu.be/sg4wF9VYjgQ?si=LMsW-AlMqmetGsni)
 
 ## Screens
 
