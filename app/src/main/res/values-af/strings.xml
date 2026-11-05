@@ -45,4 +45,23 @@
     <string name="settings_selected">GEKIES</string>
     <string name="settings_notifications_title">Aktiveer kennisgewings</string>
     <string name="settings_logout">Meld af</string>
+
+    <!-- Part 3 (machine-assisted, unverified translations) -->
+    <string name="notif_channel_name">Weerwaarskuwings</string>
+    <string name="notif_channel_desc">Ernstige weerwaarskuwings vir jou gestoorde ligging</string>
+    <string name="alert_title_thunderstorm">Donderstormwaarskuwing</string>
+    <string name="alert_title_heat">Uiterste hitte-waarskuwing</string>
+    <string name="alert_title_rain">Swaar reën waarskynlik</string>
+    <string name="alert_title_wind">Sterk wind-waarskuwing</string>
+    <string name="alert_body">%1$s: %2$s, wind %3$s</string>
+    <string name="notif_permission_denied">Kennisgewingtoestemming geweier, waarskuwings bly af</string>
+    <string name="settings_group_profile">PROFIEL</string>
+    <string name="profile_photo_desc">Profielfoto</string>
+    <string name="profile_name_hint">Vertoonnaam</string>
+    <string name="profile_change_photo">Verander foto</string>
+    <string name="profile_save">Stoor profiel</string>
+    <string name="profile_saved">Profiel gestoor</string>
+    <string name="profile_photo_failed">Kon nie daardie prent lees nie</string>
+    <string name="login_google_failed">Google-aanmelding het misluk</string>
+    <string name="login_google_unavailable">Google-aanmelding is nog nie vir hierdie weergawe opgestel nie</string>
 </resources>

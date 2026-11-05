@@ -10,6 +10,7 @@ import com.group24.atmospheric.data.local.DataStoreManager
 import com.group24.atmospheric.data.remote.OpenMeteoApiService
 import com.group24.atmospheric.data.repository.AuthRepository
 import com.group24.atmospheric.data.repository.SyncRepository
+import com.group24.atmospheric.data.repository.UserProfileRepository
 import com.group24.atmospheric.data.repository.WeatherRepository
 import com.group24.atmospheric.ui.dashboard.DashboardViewModel
 import com.group24.atmospheric.ui.forecast.ForecastViewModel
@@ -53,7 +54,7 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
                 DashboardViewModel(weatherRepository) as T
             }
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
-                SettingsViewModel(dataStoreManager, authRepository) as T
+                SettingsViewModel(dataStoreManager, authRepository, UserProfileRepository()) as T
             }
             modelClass.isAssignableFrom(ForecastViewModel::class.java) -> {
                 ForecastViewModel(weatherRepository) as T

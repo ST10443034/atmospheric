@@ -31,7 +31,7 @@ class DataStoreManager(private val context: Context) {
     }
 
     val notificationsEnabled: Flow<Boolean> = context.dataStore.data.map { pref ->
-        pref[Keys.NOTIFICATIONS_ENABLED] ?: true
+        pref[Keys.NOTIFICATIONS_ENABLED] ?: false // off until the user opts in and grants permission
     }
 
     /** ENGLISH / ISIZULU / AFRIKAANS. */

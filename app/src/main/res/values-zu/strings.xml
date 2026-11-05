@@ -45,4 +45,23 @@
     <string name="settings_selected">KUKHETHIWE</string>
     <string name="settings_notifications_title">Vumela izaziso</string>
     <string name="settings_logout">Phuma</string>
+
+    <!-- Part 3 (machine-assisted, unverified translations) -->
+    <string name="notif_channel_name">Izexwayiso zesimo sezulu</string>
+    <string name="notif_channel_desc">Izexwayiso zesimo sezulu esinzima endaweni yakho egciniwe</string>
+    <string name="alert_title_thunderstorm">Isexwayiso sesishingishane</string>
+    <string name="alert_title_heat">Isexwayiso sokushisa okukhulu</string>
+    <string name="alert_title_rain">Kungenzeka kube nemvula enkulu</string>
+    <string name="alert_title_wind">Isexwayiso somoya onamandla</string>
+    <string name="alert_body">%1$s: %2$s, umoya %3$s</string>
+    <string name="notif_permission_denied">Imvume yezaziso ayinikeziwe, izexwayiso zizohlala zivaliwe</string>
+    <string name="settings_group_profile">IPHROFAYELI</string>
+    <string name="profile_photo_desc">Isithombe sephrofayela</string>
+    <string name="profile_name_hint">Igama elibonisiwe</string>
+    <string name="profile_change_photo">Shintsha isithombe</string>
+    <string name="profile_save">Gcina iphrofayela</string>
+    <string name="profile_saved">Iphrofayela igciniwe</string>
+    <string name="profile_photo_failed">Asikwazanga ukufunda lesi sithombe</string>
+    <string name="login_google_failed">Ukungena nge-Google kuhlulekile</string>
+    <string name="login_google_unavailable">Ukungena nge-Google akukamiswa kule nguqulo</string>
 </resources>

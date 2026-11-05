@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.group24.atmospheric.databinding.ItemHourlyForecastBinding
 import com.group24.atmospheric.domain.model.HourlyForecast
+import com.group24.atmospheric.domain.model.UnitSystem
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -13,6 +14,12 @@ class HourlyForecastAdapter(private var items: List<HourlyForecast>) :
     RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder>() {
 
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    private var units = UnitSystem.METRIC
+
+    fun setUnits(newUnits: UnitSystem) {
+        units = newUnits
+    }
 
     fun submitList(newItems: List<HourlyForecast>) {
         items = newItems
@@ -25,17 +32,17 @@ class HourlyForecastAdapter(private var items: List<HourlyForecast>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position], timeFormatter)
+        holder.bind(items[position], timeFormatter, units)
     }
 
     override fun getItemCount() = items.size
 
     class ViewHolder(private val binding: ItemHourlyForecastBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: HourlyForecast, formatter: DateTimeFormatter) {
+        fun bind(item: HourlyForecast, formatter: DateTimeFormatter, units: UnitSystem) {
             val time = Instant.ofEpochSecond(item.time).atZone(ZoneId.systemDefault())
             binding.tvHourlyTime.text = formatter.format(time)
-            binding.tvHourlyTemp.text = "${item.temperature.toInt()}°"
+            binding.tvHourlyTemp.text = units.formatTemp(item.temperature)
         }
     }
 }

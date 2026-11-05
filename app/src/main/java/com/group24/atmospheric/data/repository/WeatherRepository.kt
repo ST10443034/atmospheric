@@ -33,17 +33,7 @@ class WeatherRepository(
             val domainModel = response.toDomainModel()
 
             // Cache current weather in Room
-            val entity = WeatherEntity(
-                locationId = locationId,
-                timestamp = domainModel.current.timestamp,
-                temperature = domainModel.current.temperature,
-                apparentTemperature = domainModel.current.feelsLike,
-                humidity = domainModel.current.humidity,
-                windSpeed = domainModel.current.windSpeed,
-                precipitationProbability = domainModel.current.precipitation,
-                weatherCode = domainModel.current.weatherCode
-            )
-            dao.insertWeather(entity)
+            dao.insertWeather(domainModel.current.toEntity(locationId))
 
             emit(domainModel.copy(isCached = false, fetchedAt = System.currentTimeMillis() / 1000))
         } catch (e: Exception) {
@@ -53,6 +43,18 @@ class WeatherRepository(
         }
     }
 }
+
+/** Maps the current reading to the Room row cached for [locationId] (shared with the background worker). */
+fun CurrentWeather.toEntity(locationId: Long) = WeatherEntity(
+    locationId = locationId,
+    timestamp = timestamp,
+    temperature = temperature,
+    apparentTemperature = feelsLike,
+    humidity = humidity,
+    windSpeed = windSpeed,
+    precipitationProbability = precipitation,
+    weatherCode = weatherCode
+)
 
 /** Maps a cached Room row back into the domain model the UI understands, flagged as cached. */
 private fun WeatherEntity.toDomainModel(): WeatherInfo = WeatherInfo(

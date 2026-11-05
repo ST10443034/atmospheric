@@ -1,0 +1,36 @@
+name: Release APK
+
+# Builds a signed release APK when a version tag (v*) is pushed.
+# Needs these repository secrets (Settings > Secrets and variables > Actions):
+#   KEYSTORE_BASE64   - the release keystore, base64-encoded
+#   KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD
+# Secrets are never committed to the repository.
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > "$RUNNER_TEMP/release.jks"
+      - name: Build signed release APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atmospheric-release-apk
+          path: app/build/outputs/apk/release/*.apk

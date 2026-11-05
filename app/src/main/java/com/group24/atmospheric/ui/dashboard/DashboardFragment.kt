@@ -11,8 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.group24.atmospheric.R
 import com.group24.atmospheric.databinding.FragmentDashboardBinding
+import com.group24.atmospheric.data.local.DataStoreManager
+import com.group24.atmospheric.domain.model.UnitSystem
 import com.group24.atmospheric.domain.model.WeatherInfo
 import com.group24.atmospheric.ui.ViewModelFactory
+import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
@@ -29,6 +32,8 @@ class DashboardFragment : Fragment() {
     private lateinit var viewModel: DashboardViewModel
     private val hourlyAdapter = HourlyForecastAdapter(emptyList())
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    private var unitSystem = UnitSystem.METRIC
+    private var lastWeather: WeatherInfo? = null
 
     // Repo default location, matching the previous prototype's fixed location.
     private val locationName = "Johannesburg"
@@ -67,6 +72,13 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeState() {
+        // Re-render immediately when the user flips metric/imperial in Settings.
+        viewLifecycleOwner.lifecycleScope.launch {
+            DataStoreManager(requireContext()).units.collect { key ->
+                unitSystem = UnitSystem.fromKey(key)
+                lastWeather?.let { showSuccess(it) }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 when (state) {
@@ -98,16 +110,19 @@ class DashboardFragment : Fragment() {
         binding.groupError.visibility = View.GONE
         binding.groupSuccess.visibility = View.VISIBLE
 
+        lastWeather = weather
         val current = weather.current
-        binding.tvCurrentTemp.text = current.temperature.toInt().toString()
-        binding.tvUnit.text = "°C"
+        // All values arrive in metric; convert for display according to the Settings unit choice.
+        binding.tvCurrentTemp.text = unitSystem.temperature(current.temperature).roundToInt().toString()
+        binding.tvUnit.text = unitSystem.temperatureSymbol
         binding.tvCondition.text = conditionFor(current.weatherCode)
 
         val dailyToday = weather.daily.firstOrNull()
         binding.tvFeelsLike.text = if (dailyToday != null) {
-            "Feels like ${current.feelsLike.toInt()}° · ${dailyToday.maxTemp.toInt()}° / ${dailyToday.minTemp.toInt()}°"
+            "Feels like ${unitSystem.formatTemp(current.feelsLike)} · " +
+                "${unitSystem.formatTemp(dailyToday.maxTemp)} / ${unitSystem.formatTemp(dailyToday.minTemp)}"
         } else {
-            "Feels like ${current.feelsLike.toInt()}°"
+            "Feels like ${unitSystem.formatTemp(current.feelsLike)}"
         }
 
         val time = Instant.ofEpochSecond(if (weather.isCached) weather.fetchedAt else current.timestamp)
@@ -133,10 +148,11 @@ class DashboardFragment : Fragment() {
         binding.detailHumidity.tvDetailLabel.text = "HUMIDITY"
         binding.detailHumidity.tvDetailValue.text = "${current.humidity.toInt()}%"
         binding.detailWind.tvDetailLabel.text = "WIND"
-        binding.detailWind.tvDetailValue.text = "${current.windSpeed.toInt()} km/h"
+        binding.detailWind.tvDetailValue.text = unitSystem.formatWind(current.windSpeed)
         binding.detailPrecip.tvDetailLabel.text = "PRECIP"
         binding.detailPrecip.tvDetailValue.text = "${current.precipitation.toInt()}%"
 
+        hourlyAdapter.setUnits(unitSystem)
         hourlyAdapter.submitList(weather.hourly.take(5))
     }
 

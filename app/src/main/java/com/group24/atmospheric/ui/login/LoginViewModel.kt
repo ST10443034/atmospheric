@@ -36,6 +36,21 @@ class LoginViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
+    /** Completes Google single sign-on with the ID token returned by the Google account picker. */
+    fun loginWithGoogle(idToken: String) {
+        viewModelScope.launch {
+            _loginState.value = LoginUiState.Loading
+            repository.signInWithGoogle(idToken)
+                .onSuccess { _loginState.value = LoginUiState.Success }
+                .onFailure { _loginState.value = LoginUiState.Error(it.message ?: "Google sign-in failed") }
+        }
+    }
+
+    /** Lets the Activity surface a sign-in problem (e.g. cancelled picker) through the normal error UI. */
+    fun reportError(message: String) {
+        _loginState.value = LoginUiState.Error(message)
+    }
+
     private fun validateInput(email: String, pass: String): Boolean {
         if (email.isBlank() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _loginState.value = LoginUiState.Error("Invalid email address")

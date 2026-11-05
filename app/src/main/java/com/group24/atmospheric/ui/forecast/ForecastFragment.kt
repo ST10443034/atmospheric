@@ -10,9 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.group24.atmospheric.R
 import com.group24.atmospheric.databinding.FragmentForecastBinding
+import com.group24.atmospheric.data.local.DataStoreManager
+import com.group24.atmospheric.domain.model.UnitSystem
 import com.group24.atmospheric.domain.model.WeatherInfo
 import com.group24.atmospheric.ui.ViewModelFactory
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 /**
  * Forecast & graph: hourly list, daily list, and a single-series graph of a chosen variable.
@@ -25,6 +28,7 @@ class ForecastFragment : Fragment() {
     private lateinit var viewModel: ForecastViewModel
     private val hourlyAdapter = HourlyRowAdapter()
     private val dailyAdapter = DailyRowAdapter()
+    private var unitSystem = UnitSystem.METRIC
 
     // Matches Dashboard's fixed repo-default location.
     private val lat = -26.2041
@@ -61,6 +65,14 @@ class ForecastFragment : Fragment() {
     }
 
     private fun observeState() {
+        // Re-render when the Settings unit choice changes.
+        viewLifecycleOwner.lifecycleScope.launch {
+            DataStoreManager(requireContext()).units.collect { key ->
+                unitSystem = UnitSystem.fromKey(key)
+                val s = viewModel.uiState.value
+                s.weather?.let { renderContent(it, s.selectedTab, s.selectedVariable) }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect { state ->
                 val listsEmpty = state.weather?.let { it.hourly.isEmpty() && it.daily.isEmpty() } ?: false
@@ -103,6 +115,8 @@ class ForecastFragment : Fragment() {
     }
 
     private fun renderContent(weather: WeatherInfo, tab: ForecastTab, variable: GraphVariable) {
+        hourlyAdapter.units = unitSystem
+        dailyAdapter.units = unitSystem
         hourlyAdapter.submitList(weather.hourly)
         dailyAdapter.submitList(weather.daily)
 
@@ -114,18 +128,24 @@ class ForecastFragment : Fragment() {
             )
 
             val values = when (variable) {
-                GraphVariable.TEMPERATURE -> weather.hourly.map { it.temperature.toFloat() }
+                GraphVariable.TEMPERATURE -> weather.hourly.map { unitSystem.temperature(it.temperature).toFloat() }
                 GraphVariable.PRECIPITATION -> weather.hourly.map { it.precipitationProbability.toFloat() }
                 GraphVariable.HUMIDITY -> weather.hourly.map { weather.current.humidity.toFloat() }
-                GraphVariable.WIND -> weather.hourly.map { weather.current.windSpeed.toFloat() }
+                GraphVariable.WIND -> weather.hourly.map { unitSystem.windSpeed(weather.current.windSpeed).toFloat() }
             }
             binding.graphView.setData(values, weather.isCached)
 
             if (values.isNotEmpty()) {
+                // Suffix depends on the variable: °/°F for temperature, % for precip/humidity, km/h or mph for wind.
+                val suffix = when (variable) {
+                    GraphVariable.TEMPERATURE -> "°"
+                    GraphVariable.PRECIPITATION, GraphVariable.HUMIDITY -> "%"
+                    GraphVariable.WIND -> " ${unitSystem.windSymbol}"
+                }
                 val min = values.min()
                 val max = values.max()
-                binding.tvGraphValue.text = "${values.first().toInt()}°"
-                binding.tvGraphRange.text = "now · ${min.toInt()}° – ${max.toInt()}°"
+                binding.tvGraphValue.text = "${values.first().roundToInt()}$suffix"
+                binding.tvGraphRange.text = "now · ${min.roundToInt()}$suffix – ${max.roundToInt()}$suffix"
             }
         }
         binding.tvRequestShape.text =

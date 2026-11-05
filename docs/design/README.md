@@ -20,9 +20,7 @@ patterns: Kotlin, MVVM, view binding, Material 3 (`Theme.Material3.DayNight.NoAc
 existing `res/layout` XML approach (or Jetpack Compose if the team decides to migrate — but XML
 matches what is already there).
 
-The HTML prototype is NOT in the GitHub repo — that is why Claude Code cannot find it. Drop this
-whole folder into the repo (suggested path: `docs/design/`) and commit it, then point Claude Code at
-`docs/design/README.md`.
+The HTML prototype lives in this folder (`docs/design/`); start with this README.
 
 ## Fidelity
 **High-fidelity.** Colours, type sizes, spacing, radii and all copy are final. Recreate the UI

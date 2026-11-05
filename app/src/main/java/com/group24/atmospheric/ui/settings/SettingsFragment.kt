@@ -1,7 +1,13 @@
 package com.group24.atmospheric.ui.settings
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.group24.atmospheric.notifications.NotificationHelper
+import com.group24.atmospheric.util.ImageCodec
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,8 +58,16 @@ class SettingsFragment : Fragment() {
         binding.rowLangAfrikaans.setOnClickListener { selectLanguage("AFRIKAANS", "af") }
 
         binding.switchNotifications.setOnCheckedChangeListener { switchView, isChecked ->
-            if (switchView.isPressed) viewModel.toggleNotifications(isChecked)
+            if (!switchView.isPressed) return@setOnCheckedChangeListener
+            if (isChecked && !NotificationHelper.canPost(requireContext())) {
+                // Android 13+: ask for the runtime permission first; the result decides the switch.
+                notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                viewModel.toggleNotifications(isChecked)
+            }
         }
+
+        setupProfile()
 
         binding.btnLogout.setOnClickListener {
             viewModel.logout()
@@ -66,6 +80,51 @@ class SettingsFragment : Fragment() {
         }
 
         observeState()
+    }
+
+    /** Photo chosen by the user but not yet saved (Base64 JPEG), shown immediately in the avatar. */
+    private var pendingPhotoBase64: String? = null
+
+    private val notificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                viewModel.toggleNotifications(true)
+            } else {
+                Log.w(TAG, "POST_NOTIFICATIONS denied")
+                binding.switchNotifications.isChecked = false
+                Toast.makeText(requireContext(), R.string.notif_permission_denied, Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private val pickPhoto =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri == null) return@registerForActivityResult
+            val bitmap = ImageCodec.decodeSampled({ requireContext().contentResolver.openInputStream(uri) })
+            if (bitmap == null) {
+                Toast.makeText(requireContext(), R.string.profile_photo_failed, Toast.LENGTH_SHORT).show()
+                return@registerForActivityResult
+            }
+            pendingPhotoBase64 = ImageCodec.toBase64Jpeg(bitmap)
+            binding.imgProfile.setImageBitmap(ImageCodec.fromBase64(pendingPhotoBase64!!))
+        }
+
+    /** Profile card: name + photo stored in Cloud Firestore (NoSQL), photo as a compressed Base64 blob. */
+    private fun setupProfile() {
+        binding.btnChangePhoto.setOnClickListener { pickPhoto.launch("image/*") }
+        binding.btnSaveProfile.setOnClickListener {
+            val photo = pendingPhotoBase64 ?: viewModel.profile.value?.photoBase64.orEmpty()
+            viewModel.saveProfile(binding.etDisplayName.text.toString(), photo)
+            Toast.makeText(requireContext(), R.string.profile_saved, Toast.LENGTH_SHORT).show()
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.profile.collect { profile ->
+                if (profile == null) return@collect
+                if (binding.etDisplayName.text.isNullOrEmpty()) binding.etDisplayName.setText(profile.displayName)
+                if (pendingPhotoBase64 == null) {
+                    ImageCodec.fromBase64(profile.photoBase64)?.let { binding.imgProfile.setImageBitmap(it) }
+                }
+            }
+        }
     }
 
     private fun observeState() {
@@ -124,6 +183,10 @@ class SettingsFragment : Fragment() {
 
     private fun updateDiagnostics(theme: String, units: String, language: String) {
         binding.tvDiagnostics.text = "DataStore · theme=$theme units=$units lang=$language"
+    }
+
+    private companion object {
+        const val TAG = "SettingsFragment"
     }
 
     override fun onDestroyView() {

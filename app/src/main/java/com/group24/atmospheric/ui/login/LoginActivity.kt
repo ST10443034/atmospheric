@@ -6,8 +6,12 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.widget.Toast
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+    private val TAG = "LoginActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +58,34 @@ class LoginActivity : AppCompatActivity() {
         binding.tvCreateAccount.text = spannable
     }
 
+    /** Receives the Google account picker result and hands the ID token to the ViewModel. */
+    private val googleLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            try {
+                val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    .getResult(ApiException::class.java)
+                val token = account.idToken
+                if (token != null) viewModel.loginWithGoogle(token)
+                else viewModel.reportError(getString(R.string.login_google_failed))
+            } catch (e: ApiException) {
+                Log.e(TAG, "Google sign-in error, status=${e.statusCode}")
+                // 10 = DEVELOPER_ERROR: this build's SHA-1 is not registered in Firebase yet.
+                val message = if (e.statusCode == 10) R.string.login_google_unavailable
+                else R.string.login_google_failed
+                if (e.statusCode != 12501) viewModel.reportError(getString(message)) // 12501 = user cancelled
+            }
+        }
+
+    private fun startGoogleSignIn() {
+        val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id)) // generated from google-services.json
+            .requestEmail()
+            .build()
+        val client = GoogleSignIn.getClient(this, options)
+        // Sign out of any cached Google session first so the account chooser always appears.
+        client.signOut().addOnCompleteListener { googleLauncher.launch(client.signInIntent) }
+    }
+
     private fun setupListeners() {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
@@ -60,9 +93,7 @@ class LoginActivity : AppCompatActivity() {
             viewModel.login(email, pass)
         }
 
-        binding.btnGoogleSignIn.setOnClickListener {
-            Toast.makeText(this, "Google Sign-In Defer: See PoE spec", Toast.LENGTH_SHORT).show()
-        }
+        binding.btnGoogleSignIn.setOnClickListener { startGoogleSignIn() }
 
         binding.tvCreateAccount.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))

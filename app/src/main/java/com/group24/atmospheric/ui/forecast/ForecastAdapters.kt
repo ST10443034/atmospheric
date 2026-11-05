@@ -7,6 +7,7 @@ import com.group24.atmospheric.databinding.ItemForecastDailyRowBinding
 import com.group24.atmospheric.databinding.ItemForecastHourlyRowBinding
 import com.group24.atmospheric.domain.model.DailyForecast
 import com.group24.atmospheric.domain.model.HourlyForecast
+import com.group24.atmospheric.domain.model.UnitSystem
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -28,6 +29,7 @@ class HourlyRowAdapter(private var items: List<HourlyForecast> = emptyList()) :
     RecyclerView.Adapter<HourlyRowAdapter.ViewHolder>() {
 
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    var units: UnitSystem = UnitSystem.METRIC
 
     fun submitList(newItems: List<HourlyForecast>) {
         items = newItems
@@ -44,7 +46,7 @@ class HourlyRowAdapter(private var items: List<HourlyForecast> = emptyList()) :
         holder.binding.tvTime.text = timeFormatter.format(time)
         holder.binding.tvCondition.text = conditionFor(item.weatherCode)
         holder.binding.tvPop.text = "${item.precipitationProbability}%"
-        holder.binding.tvTemp.text = "${item.temperature.toInt()}°"
+        holder.binding.tvTemp.text = units.formatTemp(item.temperature)
     }
 
     override fun getItemCount() = items.size
@@ -56,6 +58,7 @@ class DailyRowAdapter(private var items: List<DailyForecast> = emptyList()) :
     RecyclerView.Adapter<DailyRowAdapter.ViewHolder>() {
 
     private val dayFormatter = DateTimeFormatter.ofPattern("EEE", Locale.ENGLISH)
+    var units: UnitSystem = UnitSystem.METRIC
 
     fun submitList(newItems: List<DailyForecast>) {
         items = newItems
@@ -72,7 +75,7 @@ class DailyRowAdapter(private var items: List<DailyForecast> = emptyList()) :
         holder.binding.tvDay.text = dayFormatter.format(day).uppercase(Locale.ENGLISH)
         holder.binding.tvCondition.text = conditionFor(item.weatherCode)
         holder.binding.tvPop.text = "—"
-        holder.binding.tvRange.text = "${item.maxTemp.toInt()}° / ${item.minTemp.toInt()}°"
+        holder.binding.tvRange.text = "${units.formatTemp(item.maxTemp)} / ${units.formatTemp(item.minTemp)}"
     }
 
     override fun getItemCount() = items.size

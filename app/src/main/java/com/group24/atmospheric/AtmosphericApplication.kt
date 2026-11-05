@@ -3,6 +3,8 @@ package com.group24.atmospheric
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.group24.atmospheric.data.local.DataStoreManager
+import com.group24.atmospheric.notifications.NotificationHelper
+import com.group24.atmospheric.work.SyncScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -16,6 +18,8 @@ class AtmosphericApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        NotificationHelper.ensureChannel(this)
+        SyncScheduler.schedule(this) // hourly background cache refresh + alert check
         val dataStoreManager = DataStoreManager(this)
         CoroutineScope(Dispatchers.Main).launch {
             val mode = dataStoreManager.themeMode.first()

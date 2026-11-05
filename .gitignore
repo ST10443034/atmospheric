@@ -18,3 +18,9 @@ local.properties
 /.idea/appInsightsSettings.xml
 /.idea/deviceManager.xml
 /.claude/scheduled_tasks.lock
+
+hs_err_pid*.log
+replay_pid*.log
+*.jks
+*.keystore
+keystore.properties

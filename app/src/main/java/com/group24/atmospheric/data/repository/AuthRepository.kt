@@ -3,6 +3,7 @@ package com.group24.atmospheric.data.repository
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -39,6 +40,22 @@ class AuthRepository(private val firebaseAuth: FirebaseAuth) {
             Result.success(result.user)
         } catch (e: Exception) {
             Log.e(TAG, "Registration failed: ${e.message}")
+            Result.failure(e)
+        }
+    }
+
+    /**
+     * Single sign-on: exchanges a Google ID token (from the Google account picker) for a
+     * Firebase session. Flow: User -> Google account -> Firebase Authentication -> signed-in app.
+     */
+    suspend fun signInWithGoogle(idToken: String): Result<FirebaseUser?> {
+        return try {
+            Log.d(TAG, "Exchanging Google ID token for a Firebase session")
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            val result = firebaseAuth.signInWithCredential(credential).await()
+            Result.success(result.user)
+        } catch (e: Exception) {
+            Log.e(TAG, "Google sign-in failed: ${e.message}")
             Result.failure(e)
         }
     }
