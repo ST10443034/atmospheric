@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "109539401550-dskjup6vb8651hm3kn5cpsldg1k32vs5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group24.atmospheric",
+            "certificate_hash": "3e3571018569b22c5875fb316188a5802529f332"
+          }
+        },
+        {
+          "client_id": "109539401550-ns21ptogbohmm81nnenm2ths876blthq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group24.atmospheric",
+            "certificate_hash": "0cdbcd281f1b5578b0195304ee8922b3645bd7cc"
+          }
+        },
+        {
           "client_id": "109539401550-ge39kpt55jop7vomqlhqnidpmd38ilgs.apps.googleusercontent.com",
           "client_type": 3
         }
