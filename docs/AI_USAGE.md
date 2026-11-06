@@ -29,9 +29,6 @@ Anthropic (2026). Available at: https://www.anthropic.com/claude-code.
   physical phone.
 - Recording the demonstration video and making the final submission.
 
-[Add one or two sentences here in your own words describing what you checked
-or changed yourself.]
-
 ## Sources used
 
 - Open-Meteo Forecast API documentation: https://open-meteo.com/en/docs

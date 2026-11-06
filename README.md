@@ -254,6 +254,11 @@ A Version 2.0 release APK is included in the repository:
 
 [Atmospheric Version 2.0 APK](Atmospheric-v2.0-release.apk)
 
+## Further Documentation
+
+- [Code overview (PDF)](docs/Atmospheric_Code_Overview.pdf): how the code is structured and how the app was built.
+- [AI tool use and citations](docs/AI_USAGE.md): how AI tools were used and cited.
+
 ## Team Members
 
 | Student Number | Name |
